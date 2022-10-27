@@ -1,0 +1,10 @@
+{
+  "name": "auth-microservices-and-redis",
+  "version": "1.0.0",
+  "description": "node project with auth, microservices and redis",
+  "main": "index.js",
+  "author": "Gustavo Martínez <gustavomartinez1990@gmail.com>",
+  "license": "MIT",
+  "dependencies": { },
+  "devDependencies": { }
+}
