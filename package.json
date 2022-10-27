@@ -4,6 +4,13 @@
   "description": "node project with auth, microservices and redis",
   "main": "index.js",
   "scripts": {
+    "start": "pm2 start ecosystem.config.js --watch --env production",
+    "dev": "pm2 start ecosystem.config.js --watch --env development",
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate",
+    "migrations:revert": "sequelize-cli db:migrate:undo",
+    "migrations:delete": "sequelize-cli db:migrate:undo:all",
+    "migrations:seed": "sequelize-cli db:seed:all"
   },
   "author": "Gustavo Martínez <gustavomartinez1990@gmail.com>",
   "license": "MIT",
