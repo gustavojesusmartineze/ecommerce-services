@@ -1,0 +1,73 @@
+version: '3.3'
+
+services:
+  # Proxies requests to internal services
+  reverse-proxy:
+    container_name: challenge-reverse-proxy
+    image: nginx:1.17.10
+    depends_on:
+        - mysql
+        - redis
+        - core-services
+    volumes:
+      - ./reverse-proxy/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    networks:
+      - app-network
+
+  mysql:
+    container_name: challenge-mysql
+    image: mysql:8.0
+    command: --default-authentication-plugin=mysql_native_password
+    env_file:
+      - .env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql_data:/var/lib/mysqlql/data
+    networks:
+      - app-network
+
+  redis:
+    container_name: challenge-redis
+    command:
+      --requirepass ${REDIS_PASSWORD}
+    image: redis:6.2
+    env_file:
+      - .env
+    ports:
+    - 6379:6379
+    volumes:
+      - './redis_data:/var/lib/redis/data'
+    networks:
+      - app-network
+
+  # Retrieves core services
+  core-services:
+    container_name: challenge-core-services
+    image: core-services
+    env_file:
+      - .env
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    depends_on:
+      - mysql
+      - redis
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 3002:3002
+      - 3003:3003
+      - 3004:3004
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+
+#Docker Networks
+networks:
+  app-network:
+    driver: bridge
