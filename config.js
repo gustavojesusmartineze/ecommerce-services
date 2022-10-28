@@ -33,6 +33,9 @@ module.exports = {
     port: process.env.CACHE_SERVICE_PORT || 3003,
     ttl: process.env.CACHE_SERVICE_TTL || 30,
   },
+  review: {
+    port: process.env.REVIEW_SERVICE_PORT || 3004,
+  },
   redis: {
     host: process.env.REDIS_HOST || 'http://localhost',
     port: process.env.REDIS_PORT || 6379,
