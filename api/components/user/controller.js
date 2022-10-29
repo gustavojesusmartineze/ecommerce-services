@@ -54,18 +54,9 @@ module.exports = function (injectedStore, injectedCache) {
     return userInsert;
   }
 
-  async function update(id, body) {
-    const user = {
-      name: body.name,
-    }
-
-    return store.update(TABLE_USER, user, id);
-  }
-
   return {
     list,
     get,
-    create,
-    update
+    create
   }
 }
