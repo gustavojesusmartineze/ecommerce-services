@@ -25,7 +25,8 @@ class Product extends Model
   static associate(models) {
     this.hasMany(models.Review, {
       as: 'reviews',
-      foreignKey: 'productId'
+      foreignKey: 'productId',
+      allowNull: false
     });
   }
 

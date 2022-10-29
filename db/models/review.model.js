@@ -18,25 +18,25 @@ const ReviewSchema = {
   },
   userId: {
     field: 'user_id',
-    allowNull: true,
+    allowNull: false,
     type: DataTypes.INTEGER,
     references: {
       model: USER_TABLE,
-      key: 'id'
+      key: 'id',
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   productId: {
     field: 'product_id',
-    allowNull: true,
+    allowNull: false,
     type: DataTypes.STRING,
     references: {
       model: PRODUCT_TABLE,
       key: 'id'
     },
     onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    onDelete: 'CASCADE'
   },
   createdAt:{
     allowNull: false,
@@ -51,13 +51,6 @@ class Review extends Model
   static associate(models) {
     this.belongsTo(models.User, { as: 'user' });
     this.belongsTo(models.Product, { as: 'product' });
-
-    // this.belongsToMany(models.Product, {
-    //   as: 'items',
-    //   through: models.ReviewProduct,
-    //   foreignKey: 'reviewId',
-    //   otherKey: 'productId'
-    // });
   }
 
   static config(sequelize) {
