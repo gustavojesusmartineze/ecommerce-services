@@ -1,42 +1,16 @@
 const{ Model, DataTypes, Sequelize} = require('sequelize');
 
-const { USER_TABLE } = require('./user.model');
-const { PRODUCT_TABLE } = require('./product.model');
+const PRODUCT_TABLE = 'product';
 
-const  REVIEW_TABLE= 'review';
-
-const ReviewSchema = {
+const ProductSchema = {
   id: {
     allowNull: false,
-    autoIncrement: true,
     primaryKey:true,
-    type: DataTypes.INTEGER
+    type: DataTypes.STRING
   },
-  score: {
+  payload: {
     allowNull: false,
-    type: DataTypes.INTEGER
-  },
-  userId: {
-    field: 'user_id',
-    allowNull: true,
-    type: DataTypes.INTEGER,
-    references: {
-      model: USER_TABLE,
-      key: 'id'
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
-  },
-  productId: {
-    field: 'product_id',
-    allowNull: true,
-    type: DataTypes.STRING,
-    references: {
-      model: PRODUCT_TABLE,
-      key: 'id'
-    },
-    onUpdate: 'CASCADE',
-    onDelete: 'SET NULL'
+    type: DataTypes.JSON
   },
   createdAt:{
     allowNull: false,
@@ -46,32 +20,27 @@ const ReviewSchema = {
   }
 }
 
-class Review extends Model
+class Product extends Model
 {
   static associate(models) {
-    this.belongsTo(models.User, { as: 'user' });
-    this.belongsTo(models.Product, { as: 'product' });
-
-    // this.belongsToMany(models.Product, {
-    //   as: 'items',
-    //   through: models.ReviewProduct,
-    //   foreignKey: 'reviewId',
-    //   otherKey: 'productId'
-    // });
+    this.hasMany(models.Review, {
+      as: 'reviews',
+      foreignKey: 'productId'
+    });
   }
 
   static config(sequelize) {
     return {
       sequelize,
-      tableName: REVIEW_TABLE,
-      modelName: 'Review',
+      tableName: PRODUCT_TABLE,
+      modelName: 'Product',
       timestamps: false
     }
   }
 }
 
 module.exports = {
-  REVIEW_TABLE,
-  ReviewSchema,
-  Review
-};
+  PRODUCT_TABLE,
+  ProductSchema,
+  Product
+}

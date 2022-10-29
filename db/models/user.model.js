@@ -36,7 +36,7 @@ class User extends Model
 
     this.hasMany(models.Review, {
       as: 'reviews',
-      foreignKey: 'reviewId'
+      foreignKey: 'userId'
     });
   }
 
