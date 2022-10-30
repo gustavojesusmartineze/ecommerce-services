@@ -3,9 +3,15 @@ const express = require('express');
 const response = require('./../../../network/response');
 const controller = require('./index');
 
+const validatorHandler = require('./../../../network/validator.handler');
+const { loginAuthSchema } = require('./../../../db/schemas/auth.schema');
+
 const router = express.Router();
 
-router.post('/login', login);
+router.post('/login',
+  validatorHandler(loginAuthSchema, 'body'),
+  login
+);
 
 async function login(req, res, next) {
   try {

@@ -34,7 +34,13 @@ module.exports = function (injectedStore) {
       authData.password = await bcrypt.hash(data.password, config.security.salt);
     }
 
-    return store.insert(TABLE, authData);
+    try {
+      return  await store.insert(TABLE, authData);
+    } catch (error) {
+      throw new Error('Invalid information');
+    }
+
+
   }
 
   async function update(data) {
