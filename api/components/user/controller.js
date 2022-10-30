@@ -1,3 +1,4 @@
+const boom = require('@hapi/boom');
 const auth = require('../auth');
 
 const TABLE_USER = 'user';
@@ -41,17 +42,25 @@ module.exports = function (injectedStore, injectedCache) {
       username: body.username
     }
 
-    const userInsert = await store.insert(TABLE_USER, user);
+    try {
+      const userInsert = await store.insert(TABLE_USER, user);
 
-    if (body.password || body.username) {
-      return await auth.create({
+      if (userInsert && body.password || body.username ) {
+        await auth.create({
+          id: userInsert.id,
+          username: body.username,
+          password: body.password,
+        });
+      }
+
+      return {
         id: userInsert.id,
-        username: body.username,
-        password: body.password,
-      })
+        name: userInsert.name,
+        username: userInsert.username
+      }
+    } catch (error) {
+      throw boom.badRequest(error.message);
     }
-
-    return userInsert;
   }
 
   return {
