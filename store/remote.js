@@ -42,10 +42,10 @@ function createRemoteDB(host, port) {
     return handleRequest(HTTP_METHODS.GET, table);
   }
 
-  function get(table, id) {
+  function get(table, id, asociations) {
     const url = `${table}/${id}`;
 
-    return handleRequest(HTTP_METHODS.GET, url);
+    return handleRequest(HTTP_METHODS.GET, url, asociations);
   }
 
   function insert(table, data) {

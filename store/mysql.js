@@ -19,11 +19,20 @@ async function list(table) {
   }
 }
 
-async function get(table, id) {
+async function get(table, id, asociations) {
   try {
-    const data = await availableModels[table].findByPk(id);
+    let data;
+
+    if (!asociations) {
+      data =  await availableModels[table].findByPk(id);
+    } else {
+      data =  await availableModels[table].findByPk(id, {
+        include: asociations
+      });
+    }
+
     if (!data) {
-      return ('user not found');
+      return null;
     }
 
     return data;
@@ -35,6 +44,8 @@ async function get(table, id) {
 async function insert(table, data) {
   try {
     const result = await availableModels[table].create(data);
+    console.log('This error');
+    console.log(result);
 
     return result;
   } catch (error) {
