@@ -21,9 +21,9 @@ async function list (req, res, next) {
 async function get(req, res, next) {
     try {
     const { id } = req.params;
-    const user = await Controller.get(id);
+    const product = await Controller.get(id);
 
-    response.success(req, res, user, 200);
+    response.success(req, res, product, 200);
   } catch (error) {
     next(error, req, res);
   }
