@@ -6,6 +6,7 @@ const Store = require('../store/mysql');
 const router = express.Router();
 
 router.get('/:table', list);
+router.get('/:table/:id/:asociation', get);
 router.get('/:table/:id', get);
 router.post('/:table', insert);
 router.put('/:table/:id', update);
@@ -24,7 +25,9 @@ async function list(req, res, next) {
 
 async function get(req, res, next) {
   try {
-    const data = await Store.get(req.params.table, req.params.id);
+    let data = await Store.get(req.params.table, req.params.id, req.params.asociation);
+    data = JSON.stringify(data);
+    data = JSON.parse(data);
 
     response.success(req, res, data, 200);
   } catch (error) {
