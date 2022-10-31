@@ -53,8 +53,34 @@ module.exports = function (injectedStore) {
     }
   }
 
+  async function update(id, data) {
+    const review = await Store.query(COLLECTION, `product_id='${id}' AND user_id='${data.user_id}'`);
+
+    if (!review) {
+      throw error('Review not found', 404);
+    }
+
+    const raw = {
+			score: data.score,
+    }
+
+    return await Store.update(COLLECTION, raw, review.id);
+  }
+
+  async function remove(id, user) {
+    const review = await Store.query(COLLECTION, `product_id='${id}' AND user_id='${user}'`);
+
+    if (!review) {
+      throw error('Review not found', 404);
+    }
+
+    return await Store.remove(COLLECTION, review.id);
+  }
+
   return {
     get,
     create,
+    update,
+    remove
   }
 };
