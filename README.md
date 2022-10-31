@@ -31,3 +31,80 @@ npm run migrations:run
 ```
 npm run migrations:seed
 ```
+
+## 4 - Now you can use the available endpoints 
+
+### Login
+```
+POST http://localhost/api/auth/login
+
+JSON DATA {
+	"username": "sbarenski2",
+	"password": "notasafepassword"
+}
+```
+
+### Users
+**List:**
+```
+GET http://localhost/api/user
+```
+**Show:**
+```
+GET http://localhost/api/user/{id}
+```
+**Create:**
+```
+POST http://localhost/api/user/
+
+JSON DATA
+{
+	"name": "Gustavo Martinez",
+	"username": "gustavomartinez",
+	"password": "notasafepassword"
+}
+```
+### Users - Auth
+**Login:**
+All users from seeder have same password: `notasafepassword`
+```
+POST http://localhost/api/auth/login
+
+JSON DATA
+{
+	"username": "mspellsworth4",
+	"password": "notasafepassword"
+}
+```
+
+### Products
+**Show:**
+```
+GET http://localhost/api/product/{product_id}
+```
+
+### Reviews
+**Show:**
+```
+GET http://localhost/api/review/{product_id}
+```
+**Create:**
+```
+POST http://localhost/api/review/{product_id}
+JSON DATA
+{
+	"score": 5
+}
+```
+**Update:**
+```
+PUT http://localhost/api/review/{product_id}
+JSON DATA
+{
+	"score": 2
+}
+```
+**Delete:**
+```
+DELETE http://localhost/api/review/{product_id}
+```
