@@ -10,7 +10,8 @@
     "migrations:run": "sequelize-cli db:migrate",
     "migrations:revert": "sequelize-cli db:migrate:undo",
     "migrations:delete": "sequelize-cli db:migrate:undo:all",
-    "migrations:seed": "sequelize-cli db:seed:all"
+    "migrations:seed": "sequelize-cli db:seed:all",
+    "test": "jest"
   },
   "author": "Gustavo Martínez <gustavomartinez1990@gmail.com>",
   "license": "MIT",
@@ -27,6 +28,7 @@
     "sequelize": "^6.25.3"
   },
   "devDependencies": {
+    "jest": "^29.2.2",
     "sequelize-cli": "^6.5.2"
   }
 }
