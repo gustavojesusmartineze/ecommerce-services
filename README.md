@@ -33,6 +33,7 @@ npm run migrations:seed
 ```
 
 ## 4 - Now you can use the available endpoints 
+You can use this [postman file](postman_collection.json)
 
 ### Login
 ```
