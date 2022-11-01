@@ -32,7 +32,23 @@ npm run migrations:run
 npm run migrations:seed
 ```
 
-## 4 - Now you can use the available endpoints 
+# 4 Services
+You can access the core services container with this cmd
+```
+docker exec -it challenge-core-services bash
+```
+Inside this container you can run:
+```
+# Show all services running in this container
+pm2 status
+
+# Show all logs of the services
+pm2 logs -f
+```
+
+You can check [pm2 ecosystem.config.js file](ecosystem.config.js) to inspect or see each of the services running and it's config
+
+## 5 - Now you can use the available endpoints 
 You can use this [postman file](postman_collection.json)
 
 ### Login
